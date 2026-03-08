@@ -147,4 +147,283 @@ window.addEventListener('scroll', () => {
 // ── Live pulse badge every 5s subtle blink ──
 // (handled purely by CSS animation)
 
+/* ════════════════════════════════════════
+   LIVE SCORES — CricketData.org API
+════════════════════════════════════════ */
+const CRICAPI_BASE = 'https://api.cricapi.com/v1';
+const LS_KEY = 'cricapi_key';
+const REFRESH_INTERVAL = 30; // seconds
+
+let liveApiKey = '';
+let refreshTimer = null;
+let countdownTimer = null;
+let countdownVal = REFRESH_INTERVAL;
+let currentFilter = 'all';
+let allMatches = [];
+
+const apiSetupCard   = document.getElementById('apiSetupCard');
+const apiKeyInput    = document.getElementById('apiKeyInput');
+const apiKeyBtn      = document.getElementById('apiKeyBtn');
+const apiKeyError    = document.getElementById('apiKeyError');
+const liveControls   = document.getElementById('liveControls');
+const liveContainer  = document.getElementById('liveMatchesContainer');
+const livePlaceholder= document.getElementById('livePlaceholder');
+const liveLoading    = document.getElementById('liveLoading');
+const refreshCountEl = document.getElementById('refreshCountdown');
+const refreshNowBtn  = document.getElementById('refreshNowBtn');
+const disconnectBtn  = document.getElementById('disconnectBtn');
+const apiGuideCard   = document.getElementById('apiGuideCard');
+
+// ── Filter buttons ──
+document.querySelectorAll('.live-filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.live-filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    currentFilter = btn.dataset.filter;
+    renderMatches(allMatches);
+  });
+});
+
+// ── Connect button ──
+apiKeyBtn.addEventListener('click', async () => {
+  const key = apiKeyInput.value.trim();
+  if (!key) { showKeyError('Please enter your API key.'); return; }
+  apiKeyBtn.disabled = true;
+  apiKeyBtn.textContent = 'Connecting…';
+  apiKeyError.classList.add('hidden');
+  const ok = await testAndConnect(key);
+  apiKeyBtn.disabled = false;
+  apiKeyBtn.textContent = 'Connect';
+  if (!ok) showKeyError('Could not verify key. Check it is correct and try again.');
+});
+
+apiKeyInput.addEventListener('keydown', e => {
+  if (e.key === 'Enter') apiKeyBtn.click();
+});
+
+// ── Disconnect ──
+disconnectBtn.addEventListener('click', () => {
+  localStorage.removeItem(LS_KEY);
+  liveApiKey = '';
+  clearTimers();
+  liveControls.classList.add('hidden');
+  apiSetupCard.classList.remove('hidden');
+  apiGuideCard.classList.remove('hidden');
+  liveContainer.innerHTML = '';
+  livePlaceholder.classList.remove('hidden');
+  liveContainer.appendChild(livePlaceholder);
+  allMatches = [];
+});
+
+// ── Refresh now ──
+refreshNowBtn.addEventListener('click', () => {
+  clearTimers();
+  fetchLiveScores();
+});
+
+async function testAndConnect(key) {
+  try {
+    const url = `${CRICAPI_BASE}/currentMatches?apikey=${encodeURIComponent(key)}&offset=0`;
+    const res = await fetch(url);
+    if (!res.ok) return false;
+    const data = await res.json();
+    if (data.status !== 'success' && !Array.isArray(data.data)) return false;
+    // Key valid — save and start
+    liveApiKey = key;
+    localStorage.setItem(LS_KEY, key);
+    onConnected(data);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+function onConnected(initialData) {
+  apiSetupCard.classList.add('hidden');
+  apiGuideCard.classList.add('hidden');
+  liveControls.classList.remove('hidden');
+  allMatches = initialData.data || [];
+  renderMatches(allMatches);
+  startRefreshCycle();
+}
+
+async function fetchLiveScores() {
+  if (!liveApiKey) return;
+  showLoading(true);
+  clearErrorBanner();
+  try {
+    const url = `${CRICAPI_BASE}/currentMatches?apikey=${encodeURIComponent(liveApiKey)}&offset=0`;
+    const res = await fetch(url);
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const data = await res.json();
+    if (data.status !== 'success') throw new Error(data.status || 'API error');
+    allMatches = data.data || [];
+    renderMatches(allMatches);
+  } catch (err) {
+    showErrorBanner(`Failed to fetch scores: ${err.message}. Retrying in ${REFRESH_INTERVAL}s.`);
+    renderMatches(allMatches); // show last known data
+  } finally {
+    showLoading(false);
+    startRefreshCycle();
+  }
+}
+
+function startRefreshCycle() {
+  clearTimers();
+  countdownVal = REFRESH_INTERVAL;
+  if (refreshCountEl) refreshCountEl.textContent = countdownVal;
+  countdownTimer = setInterval(() => {
+    countdownVal--;
+    if (refreshCountEl) refreshCountEl.textContent = Math.max(countdownVal, 0);
+    if (countdownVal <= 0) {
+      clearInterval(countdownTimer);
+      fetchLiveScores();
+    }
+  }, 1000);
+}
+
+function clearTimers() {
+  clearInterval(refreshTimer);
+  clearInterval(countdownTimer);
+}
+
+function renderMatches(matches) {
+  // Filter
+  let filtered = matches;
+  if (currentFilter === 'live') {
+    filtered = matches.filter(m => m.matchStarted && !m.matchEnded);
+  } else if (currentFilter === 't20') {
+    filtered = matches.filter(m => (m.matchType || '').toLowerCase().includes('t20'));
+  } else if (currentFilter === 'odi') {
+    filtered = matches.filter(m => (m.matchType || '').toLowerCase() === 'odi');
+  } else if (currentFilter === 'test') {
+    filtered = matches.filter(m => (m.matchType || '').toLowerCase() === 'test');
+  }
+
+  // Clear container
+  liveContainer.innerHTML = '';
+  clearErrorBanner();
+
+  if (!filtered.length) {
+    const msg = document.createElement('div');
+    msg.className = 'no-matches-msg';
+    msg.textContent = currentFilter === 'live'
+      ? 'No matches currently in progress. Check back soon!'
+      : `No ${currentFilter === 'all' ? '' : currentFilter.toUpperCase() + ' '}matches found right now.`;
+    liveContainer.appendChild(msg);
+    return;
+  }
+
+  const grid = document.createElement('div');
+  grid.className = 'live-matches-grid';
+
+  filtered.forEach(match => {
+    grid.appendChild(buildMatchCard(match));
+  });
+
+  liveContainer.appendChild(grid);
+}
+
+function buildMatchCard(match) {
+  const isLive = match.matchStarted && !match.matchEnded;
+  const isUpcoming = !match.matchStarted;
+
+  const card = document.createElement('div');
+  card.className = `live-match-card${isLive ? ' is-live' : ''}`;
+
+  // Status badge
+  let badgeClass = 'badge-result';
+  let badgeText = 'Completed';
+  if (isUpcoming) { badgeClass = 'badge-upcoming'; badgeText = 'Upcoming'; }
+  else if (isLive && match.status && match.status.toLowerCase().includes('toss')) { badgeClass = 'badge-toss'; badgeText = 'Toss'; }
+  else if (isLive) { badgeClass = 'badge-live'; badgeText = '● LIVE'; }
+
+  // Match type label
+  const matchType = match.matchType ? match.matchType.toUpperCase() : 'CRICKET';
+  const seriesName = match.series_id ? '' : '';
+
+  // Scores: match.score is an array [{r, w, o, inning}, …]
+  const scores = match.score || [];
+  const teams = match.teams || [];
+
+  // Build team rows
+  let teamsHTML = '';
+  teams.forEach((team, i) => {
+    const scoreObj = scores.find(s => s.inning && s.inning.startsWith(team));
+    const scoreText = scoreObj
+      ? `${scoreObj.r ?? '—'}/${scoreObj.w ?? '—'}`
+      : (match.matchStarted ? '—' : 'TBD');
+    const overs = scoreObj && scoreObj.o ? `(${scoreObj.o} ov)` : '';
+    // Detect current batting side from status
+    const isBatting = isLive && match.status && match.status.toLowerCase().includes(team.toLowerCase().split(' ')[0]);
+    teamsHTML += `
+      <div class="lmc-team-row">
+        <span class="lmc-team-name${isBatting ? ' batting' : ''}">${escapeHtml(team)}</span>
+        <span>
+          <span class="lmc-score${isBatting ? ' batting' : ''}">${scoreText}</span>
+          <span class="lmc-overs">${overs}</span>
+        </span>
+      </div>`;
+  });
+
+  const statusText = match.status || (isUpcoming ? `Starts ${match.date || 'soon'}` : 'Result pending');
+  const venue = match.venue ? `📍 ${match.venue}` : '';
+
+  card.innerHTML = `
+    <div class="lmc-header">
+      <span class="lmc-match-type">${matchType}${match.name ? ' · ' + escapeHtml(match.name.split(',')[0]) : ''}</span>
+      <span class="lmc-status-badge ${badgeClass}">${badgeText}</span>
+    </div>
+    <div class="lmc-body">
+      <div class="lmc-teams">${teamsHTML}</div>
+      <div class="lmc-divider"></div>
+      <div class="lmc-status-text${isLive ? ' live-text' : ''}">${escapeHtml(statusText)}</div>
+      ${venue ? `<div class="lmc-venue">${escapeHtml(venue)}</div>` : ''}
+    </div>`;
+
+  return card;
+}
+
+function escapeHtml(str) {
+  const d = document.createElement('div');
+  d.textContent = str || '';
+  return d.innerHTML;
+}
+
+function showLoading(show) {
+  liveLoading.classList.toggle('hidden', !show);
+  if (show) liveContainer.innerHTML = '';
+}
+
+function showKeyError(msg) {
+  apiKeyError.textContent = msg;
+  apiKeyError.classList.remove('hidden');
+}
+
+function showErrorBanner(msg) {
+  clearErrorBanner();
+  const banner = document.createElement('div');
+  banner.className = 'live-error-banner';
+  banner.id = 'liveErrorBanner';
+  banner.innerHTML = `⚠️ ${escapeHtml(msg)}`;
+  liveControls.after(banner);
+}
+
+function clearErrorBanner() {
+  const b = document.getElementById('liveErrorBanner');
+  if (b) b.remove();
+}
+
+// ── Auto-load if key saved in localStorage ──
+const savedKey = localStorage.getItem(LS_KEY);
+if (savedKey) {
+  liveApiKey = savedKey;
+  apiKeyInput.value = savedKey;
+  apiSetupCard.classList.add('hidden');
+  apiGuideCard.classList.add('hidden');
+  liveControls.classList.remove('hidden');
+  showLoading(true);
+  fetchLiveScores();
+}
+
 console.log('🏏 T20 World Cup 2026 — India vs New Zealand — Let the best team win!');
