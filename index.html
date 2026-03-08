@@ -24,6 +24,7 @@
         <li><a href="#stats">Stats</a></li>
         <li><a href="#journey">Journey</a></li>
         <li><a href="#stadium">Stadium</a></li>
+        <li><a href="#live" class="nav-live-link"><span class="live-dot small"></span> Live Scores</a></li>
         <li><a href="#venue">Venue</a></li>
       </ul>
       <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">☰</button>
@@ -34,6 +35,7 @@
       <a href="#stats">Stats</a>
       <a href="#journey">Journey</a>
       <a href="#stadium">Stadium</a>
+      <a href="#live">🔴 Live Scores</a>
       <a href="#venue">Venue</a>
     </div>
   </nav>
@@ -1031,6 +1033,96 @@
         </div>
       </div>
 
+    </div>
+  </section>
+
+  <!-- ───── LIVE SCORES ───── -->
+  <section class="section live-section" id="live">
+    <div class="container">
+      <h2 class="section-title"><span class="live-dot"></span> Live <span class="gold">Cricket Scores</span></h2>
+      <p class="section-sub">Real-time scores from all ongoing cricket matches worldwide</p>
+
+      <!-- API Key Setup -->
+      <div class="api-setup-card" id="apiSetupCard">
+        <div class="api-setup-icon">🔑</div>
+        <div class="api-setup-text">
+          <div class="api-setup-title">Connect to Live Scores</div>
+          <div class="api-setup-sub">
+            Get your <strong>free API key</strong> from
+            <a href="https://cricketdata.org" target="_blank" rel="noopener" class="api-link">cricketdata.org</a>
+            (100 free calls/day, no credit card needed — sign up takes 30 seconds).
+          </div>
+        </div>
+        <div class="api-key-form">
+          <input type="text" id="apiKeyInput" class="api-key-input" placeholder="Paste your API key here…" autocomplete="off" />
+          <button class="api-key-btn" id="apiKeyBtn">Connect</button>
+        </div>
+        <div class="api-key-error hidden" id="apiKeyError">Invalid key or network error — please try again.</div>
+      </div>
+
+      <!-- Live score controls (shown after key connected) -->
+      <div class="live-controls hidden" id="liveControls">
+        <div class="live-status-bar">
+          <div class="live-connected-badge">
+            <span class="live-dot small"></span> Live — Auto-refreshing
+          </div>
+          <div class="live-refresh-info">
+            Next refresh in <span id="refreshCountdown">30</span>s
+            <button class="refresh-now-btn" id="refreshNowBtn">↻ Now</button>
+          </div>
+          <button class="disconnect-btn" id="disconnectBtn">Disconnect</button>
+        </div>
+
+        <!-- Filter tabs -->
+        <div class="live-filter-tabs">
+          <button class="live-filter-btn active" data-filter="all">All Matches</button>
+          <button class="live-filter-btn" data-filter="live">🔴 In Progress</button>
+          <button class="live-filter-btn" data-filter="t20">T20</button>
+          <button class="live-filter-btn" data-filter="odi">ODI</button>
+          <button class="live-filter-btn" data-filter="test">Test</button>
+        </div>
+      </div>
+
+      <!-- Matches container -->
+      <div id="liveMatchesContainer">
+        <!-- Populated by JS -->
+        <div class="live-placeholder" id="livePlaceholder">
+          <div class="placeholder-icon">🏏</div>
+          <div class="placeholder-title">No live scores yet</div>
+          <div class="placeholder-sub">Connect your free API key above to see live cricket scores from around the world.</div>
+        </div>
+      </div>
+
+      <!-- Loading skeleton -->
+      <div class="live-loading hidden" id="liveLoading">
+        <div class="skeleton-card"></div>
+        <div class="skeleton-card"></div>
+        <div class="skeleton-card"></div>
+      </div>
+
+      <!-- How to get key guide -->
+      <div class="api-guide-card" id="apiGuideCard">
+        <h3 class="api-guide-title">How to get your free API key</h3>
+        <div class="api-guide-steps">
+          <div class="api-guide-step">
+            <div class="step-num">1</div>
+            <div class="step-text">Go to <a href="https://cricketdata.org" target="_blank" rel="noopener" class="api-link">cricketdata.org</a> and click <strong>Sign Up Free</strong></div>
+          </div>
+          <div class="api-guide-step">
+            <div class="step-num">2</div>
+            <div class="step-text">Verify your email, then log in to your dashboard</div>
+          </div>
+          <div class="api-guide-step">
+            <div class="step-num">3</div>
+            <div class="step-text">Copy the API key shown in your profile — it looks like <code class="key-sample">abc1234d-efgh-ijkl-…</code></div>
+          </div>
+          <div class="api-guide-step">
+            <div class="step-num">4</div>
+            <div class="step-text">Paste it into the box above and click <strong>Connect</strong> — live scores load instantly!</div>
+          </div>
+        </div>
+        <div class="api-guide-note">Free tier: 100 API calls/day (refreshes every 30s = ~2,880 calls/day needed for non-stop refresh — increase interval or upgrade plan as needed)</div>
+      </div>
     </div>
   </section>
 
