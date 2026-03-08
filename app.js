@@ -329,7 +329,13 @@ function buildMatchCard(match) {
   const isUpcoming = !match.matchStarted;
 
   const card = document.createElement('div');
-  card.className = `live-match-card${isLive ? ' is-live' : ''}`;
+  card.className = `live-match-card${isLive ? ' is-live' : ''} clickable-card`;
+  card.title = 'Click to view full scorecard';
+  if (match.id) {
+    card.addEventListener('click', () => {
+      window.open(`scorecard.html?id=${encodeURIComponent(match.id)}`, '_blank');
+    });
+  }
 
   // Status badge
   let badgeClass = 'badge-result';
