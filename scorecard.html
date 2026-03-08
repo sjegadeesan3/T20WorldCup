@@ -9,168 +9,137 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <style>
-    /* ── Scorecard Page Specific Styles ── */
-    .sc-page { max-width: 900px; margin: 0 auto; padding: 24px 20px 60px; }
+    .sc-page { max-width: 940px; margin: 0 auto; padding: 24px 20px 60px; }
 
     .sc-back-btn {
       display: inline-flex; align-items: center; gap: 8px;
       background: var(--card); color: var(--text-muted);
       border: 1px solid var(--border); border-radius: 8px;
       padding: 8px 16px; font-size: 14px; cursor: pointer;
-      text-decoration: none; transition: all 0.2s;
-      margin-bottom: 24px;
+      text-decoration: none; transition: all 0.2s; margin-bottom: 24px;
     }
     .sc-back-btn:hover { color: var(--gold); border-color: var(--gold); }
 
-    /* Match Header */
+    /* ── Header ── */
     .sc-header {
       background: linear-gradient(135deg, var(--card) 0%, var(--card2) 100%);
       border: 1px solid var(--border); border-radius: var(--radius-lg);
-      padding: 28px 32px; margin-bottom: 24px;
+      padding: 28px 32px; margin-bottom: 20px;
     }
-    .sc-match-type {
-      font-size: 12px; font-weight: 600; letter-spacing: 1px;
-      color: var(--gold); text-transform: uppercase; margin-bottom: 8px;
-    }
-    .sc-match-name {
-      font-family: var(--font-title); font-size: 22px; font-weight: 700;
-      color: var(--text); margin-bottom: 16px;
-    }
-    .sc-teams-summary {
-      display: flex; align-items: center; gap: 20px; flex-wrap: wrap;
-    }
+    .sc-match-type { font-size: 12px; font-weight: 600; letter-spacing: 1px; color: var(--gold); text-transform: uppercase; margin-bottom: 8px; }
+    .sc-match-name { font-family: var(--font-title); font-size: 22px; font-weight: 700; color: var(--text); margin-bottom: 16px; }
+    .sc-teams-summary { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
     .sc-team-block { text-align: center; flex: 1; min-width: 120px; }
-    .sc-team-name-big {
-      font-family: var(--font-title); font-size: 18px; font-weight: 700;
-      color: var(--text); display: block; margin-bottom: 6px;
-    }
-    .sc-team-score-big {
-      font-family: var(--font-title); font-size: 28px; font-weight: 700;
-      color: var(--gold);
-    }
+    .sc-team-name-big { font-family: var(--font-title); font-size: 18px; font-weight: 700; color: var(--text); display: block; margin-bottom: 6px; }
+    .sc-team-score-big { font-family: var(--font-title); font-size: 28px; font-weight: 700; color: var(--gold); }
     .sc-team-overs { font-size: 13px; color: var(--text-muted); margin-top: 2px; }
     .sc-vs { font-family: var(--font-title); font-size: 20px; color: var(--text-muted); }
-    .sc-status-row {
-      margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--border);
-      display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
-    }
-    .sc-status-badge {
-      font-size: 12px; font-weight: 700; padding: 4px 10px;
-      border-radius: 20px; text-transform: uppercase; letter-spacing: 0.5px;
-    }
+    .sc-status-row { margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--border); display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+    .sc-status-badge { font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 20px; text-transform: uppercase; letter-spacing: 0.5px; }
     .sc-badge-live { background: rgba(239,68,68,0.15); color: #ef4444; border: 1px solid rgba(239,68,68,0.3); }
     .sc-badge-result { background: rgba(34,197,94,0.15); color: #22c55e; border: 1px solid rgba(34,197,94,0.3); }
     .sc-badge-upcoming { background: rgba(255,215,0,0.15); color: var(--gold); border: 1px solid rgba(255,215,0,0.3); }
     .sc-status-text { font-size: 14px; color: var(--text-muted); }
-    .sc-venue { font-size: 13px; color: var(--text-muted); }
+    .sc-venue { font-size: 13px; color: var(--text-muted); margin-top: 10px; }
 
-    /* Innings Section */
-    .sc-innings {
-      background: var(--card); border: 1px solid var(--border);
-      border-radius: var(--radius-lg); margin-bottom: 20px; overflow: hidden;
+    /* ── Detail Tabs ── */
+    .sc-tabs { display: flex; gap: 4px; margin-bottom: 20px; background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 6px; }
+    .sc-tab-btn {
+      flex: 1; padding: 10px 8px; font-size: 13px; font-weight: 600;
+      background: none; border: none; color: var(--text-muted); cursor: pointer;
+      border-radius: 8px; transition: all 0.2s; white-space: nowrap;
     }
+    .sc-tab-btn.active { background: var(--card2); color: var(--gold); }
+    .sc-tab-btn:hover:not(.active) { color: var(--text); }
+    .sc-tab-panel { display: none; }
+    .sc-tab-panel.active { display: block; }
+
+    /* ── Innings / Tables ── */
+    .sc-innings { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-lg); margin-bottom: 20px; overflow: hidden; }
     .sc-innings-header {
       background: var(--card2); padding: 16px 24px;
       display: flex; align-items: center; justify-content: space-between;
       border-bottom: 1px solid var(--border);
     }
-    .sc-innings-title {
-      font-family: var(--font-title); font-size: 16px; font-weight: 700; color: var(--text);
-    }
-    .sc-innings-total {
-      font-family: var(--font-title); font-size: 20px; font-weight: 700; color: var(--gold);
-    }
+    .sc-innings-title { font-family: var(--font-title); font-size: 16px; font-weight: 700; color: var(--text); }
+    .sc-innings-total { font-family: var(--font-title); font-size: 20px; font-weight: 700; color: var(--gold); }
     .sc-innings-overs { font-size: 13px; color: var(--text-muted); margin-left: 8px; }
-
-    /* Tables */
+    .sc-section-label { padding: 12px 24px 0; font-size: 11px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; color: var(--text-muted); }
     .sc-table-wrap { overflow-x: auto; }
-    .sc-table {
-      width: 100%; border-collapse: collapse;
-      font-size: 13.5px;
-    }
-    .sc-table th {
-      background: rgba(255,255,255,0.04); color: var(--text-muted);
-      font-size: 11px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase;
-      padding: 10px 14px; text-align: left; white-space: nowrap;
-    }
+    .sc-table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+    .sc-table th { background: rgba(255,255,255,0.04); color: var(--text-muted); font-size: 11px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; padding: 10px 14px; text-align: left; white-space: nowrap; }
     .sc-table th.num { text-align: right; }
-    .sc-table td {
-      padding: 11px 14px; color: var(--text); border-bottom: 1px solid rgba(255,255,255,0.05);
-      white-space: nowrap;
-    }
+    .sc-table td { padding: 11px 14px; color: var(--text); border-bottom: 1px solid rgba(255,255,255,0.05); white-space: nowrap; }
     .sc-table td.num { text-align: right; font-variant-numeric: tabular-nums; }
     .sc-table tr:last-child td { border-bottom: none; }
     .sc-table tr:hover td { background: rgba(255,255,255,0.03); }
-
     .sc-batter-name { font-weight: 600; color: var(--text); }
-    .sc-dismissal { font-size: 12px; color: var(--text-muted); display: block; margin-top: 2px; }
+    .sc-dismissal { font-size: 12px; color: var(--text-muted); display: block; margin-top: 2px; white-space: normal; }
     .sc-highlight { color: var(--gold); font-weight: 700; }
     .sc-not-out { color: var(--green); font-weight: 600; }
-
     .sc-extras-row td { color: var(--text-muted); font-size: 13px; background: rgba(255,255,255,0.02); }
     .sc-total-row td { font-weight: 700; background: rgba(255,215,0,0.05); color: var(--gold); }
 
-    /* Bowling */
-    .sc-bowling-wrap { padding: 0; }
-
-    /* Fall of Wickets */
-    .sc-fow {
-      padding: 14px 20px 16px; border-top: 1px solid var(--border);
-    }
-    .sc-fow-title {
-      font-size: 12px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase;
-      color: var(--text-muted); margin-bottom: 10px;
-    }
-    .sc-fow-list {
-      display: flex; flex-wrap: wrap; gap: 8px;
-    }
-    .sc-fow-item {
-      background: var(--card2); border: 1px solid var(--border); border-radius: 6px;
-      padding: 5px 10px; font-size: 12.5px; color: var(--text-muted);
-    }
+    /* ── Fall of Wickets ── */
+    .sc-fow { padding: 14px 20px 16px; border-top: 1px solid var(--border); }
+    .sc-fow-title { font-size: 11px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 10px; }
+    .sc-fow-list { display: flex; flex-wrap: wrap; gap: 6px; }
+    .sc-fow-item { background: var(--card2); border: 1px solid var(--border); border-radius: 6px; padding: 5px 10px; font-size: 12px; color: var(--text-muted); }
     .sc-fow-item strong { color: var(--text); }
 
-    /* Loading & Error */
-    .sc-loading {
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
-      padding: 80px 20px; gap: 16px;
+    /* ── Commentary ── */
+    .sc-commentary-list { display: flex; flex-direction: column; gap: 0; }
+    .sc-ball-item {
+      padding: 12px 20px; border-bottom: 1px solid rgba(255,255,255,0.05);
+      display: flex; gap: 14px; align-items: flex-start;
     }
-    .sc-spinner {
-      width: 44px; height: 44px; border: 3px solid var(--border);
-      border-top-color: var(--gold); border-radius: 50%;
-      animation: spin 0.8s linear infinite;
+    .sc-ball-item:last-child { border-bottom: none; }
+    .sc-ball-over { font-size: 12px; font-weight: 700; color: var(--gold); min-width: 38px; padding-top: 2px; }
+    .sc-ball-score {
+      font-size: 13px; font-weight: 700; min-width: 24px; text-align: center;
+      padding: 2px 6px; border-radius: 4px; background: var(--card2); color: var(--text);
     }
+    .sc-ball-score.is-six { background: rgba(255,215,0,0.2); color: var(--gold); }
+    .sc-ball-score.is-four { background: rgba(34,197,94,0.15); color: var(--green); }
+    .sc-ball-score.is-wicket { background: rgba(239,68,68,0.15); color: #ef4444; }
+    .sc-ball-text { font-size: 13px; color: var(--text-muted); line-height: 1.5; }
+    .sc-ball-text strong { color: var(--text); }
+    .sc-commentary-load { text-align: center; padding: 14px; }
+    .sc-commentary-load button { background: var(--card2); border: 1px solid var(--border); color: var(--gold); padding: 8px 20px; border-radius: 8px; cursor: pointer; font-size: 13px; font-weight: 600; }
+    .sc-commentary-load button:hover { background: var(--border); }
+
+    /* ── Match Info ── */
+    .sc-info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .sc-info-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px 20px; }
+    .sc-info-card-title { font-size: 11px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 12px; }
+    .sc-info-row { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 8px; font-size: 13.5px; }
+    .sc-info-row:last-child { margin-bottom: 0; }
+    .sc-info-label { color: var(--text-muted); flex-shrink: 0; }
+    .sc-info-value { color: var(--text); font-weight: 500; text-align: right; }
+    .sc-squads-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 16px; }
+    .sc-squad-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px 20px; }
+    .sc-squad-title { font-family: var(--font-title); font-size: 15px; color: var(--gold); margin-bottom: 10px; }
+    .sc-squad-player { font-size: 13px; color: var(--text-muted); padding: 5px 0; border-bottom: 1px solid rgba(255,255,255,0.04); }
+    .sc-squad-player:last-child { border-bottom: none; }
+    .sc-squad-player.captain { color: var(--text); font-weight: 600; }
+
+    /* ── Loading / Error ── */
+    .sc-loading { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 80px 20px; gap: 16px; }
+    .sc-spinner { width: 44px; height: 44px; border: 3px solid var(--border); border-top-color: var(--gold); border-radius: 50%; animation: spin 0.8s linear infinite; }
     @keyframes spin { to { transform: rotate(360deg); } }
     .sc-loading-text { color: var(--text-muted); font-size: 15px; }
+    .sc-error { background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.3); border-radius: var(--radius); padding: 20px 24px; text-align: center; color: #ef4444; }
+    .sc-no-data { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 40px 24px; text-align: center; color: var(--text-muted); }
+    .sc-no-data .icon { font-size: 36px; margin-bottom: 10px; }
 
-    .sc-error {
-      background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.3);
-      border-radius: var(--radius); padding: 20px 24px; text-align: center;
-      color: #ef4444;
-    }
-
-    .sc-no-scorecard {
-      background: var(--card); border: 1px solid var(--border);
-      border-radius: var(--radius-lg); padding: 40px 24px; text-align: center;
-      color: var(--text-muted);
-    }
-    .sc-no-scorecard .sc-nc-icon { font-size: 40px; margin-bottom: 12px; }
-    .sc-no-scorecard p { font-size: 15px; }
-
-    /* Section divider label */
-    .sc-section-label {
-      padding: 10px 24px 0;
-      font-size: 12px; font-weight: 600; letter-spacing: 0.5px;
-      text-transform: uppercase; color: var(--text-muted);
-    }
-
-    /* Responsive */
     @media (max-width: 600px) {
       .sc-header { padding: 20px 18px; }
       .sc-innings-header { padding: 14px 16px; }
       .sc-table th, .sc-table td { padding: 9px 10px; }
       .sc-match-name { font-size: 17px; }
       .sc-team-score-big { font-size: 22px; }
+      .sc-info-grid, .sc-squads-wrap { grid-template-columns: 1fr; }
+      .sc-tabs { overflow-x: auto; }
     }
   </style>
 </head>
@@ -204,299 +173,443 @@
     </div>
   </nav>
 
-  <div class="sc-page" id="scPage">
+  <div class="sc-page">
     <a href="index.html#live" class="sc-back-btn">← Back to Live Scores</a>
     <div id="scContent">
       <div class="sc-loading">
         <div class="sc-spinner"></div>
-        <div class="sc-loading-text">Loading scorecard…</div>
+        <div class="sc-loading-text">Loading match details…</div>
       </div>
     </div>
   </div>
 
   <script>
     // ── Nav toggle ──
-    const navToggle = document.getElementById('navToggle');
-    const navMobile = document.getElementById('navMobile');
-    navToggle.addEventListener('click', () => {
-      navMobile.classList.toggle('open');
-      navToggle.textContent = navMobile.classList.contains('open') ? '✕' : '☰';
+    document.getElementById('navToggle').addEventListener('click', () => {
+      const m = document.getElementById('navMobile');
+      m.classList.toggle('open');
+      document.getElementById('navToggle').textContent = m.classList.contains('open') ? '✕' : '☰';
     });
-    navMobile.querySelectorAll('a').forEach(a => {
+    document.getElementById('navMobile').querySelectorAll('a').forEach(a => {
       a.addEventListener('click', () => {
-        navMobile.classList.remove('open');
-        navToggle.textContent = '☰';
+        document.getElementById('navMobile').classList.remove('open');
+        document.getElementById('navToggle').textContent = '☰';
       });
     });
 
-    // ── Constants ──
     const CRICAPI_BASE = 'https://api.cricapi.com/v1';
     const LS_KEY = 'cricapi_key';
     const DEFAULT_KEY = 'd19a69d5-f828-4b49-8cc4-9a73f970c598';
-
     const scContent = document.getElementById('scContent');
 
-    function escHtml(str) {
+    // ── Helpers ──
+    function esc(str) {
       const d = document.createElement('div');
-      d.textContent = str || '';
+      d.textContent = (str == null ? '' : String(str));
       return d.innerHTML;
     }
 
-    // ── Get match ID from URL ──
-    const params = new URLSearchParams(window.location.search);
-    const matchId = params.get('id');
-
-    if (!matchId) {
-      scContent.innerHTML = `<div class="sc-error">No match ID provided. <a href="index.html#live" style="color:var(--gold)">Go back to Live Scores</a></div>`;
-    } else {
-      const apiKey = localStorage.getItem(LS_KEY) || DEFAULT_KEY;
-      loadScorecard(matchId, apiKey);
+    // Handle API returning player as {id, name} object OR string
+    function getName(val) {
+      if (!val) return '—';
+      if (typeof val === 'string') return val;
+      if (typeof val === 'object') return val.name || val.fullName || val.id || '—';
+      return String(val);
     }
 
-    async function loadScorecard(id, apiKey) {
+    // Handle extras as number or {b, lb, wd, nb, p} object
+    function parseExtras(extras) {
+      if (extras == null) return null;
+      if (typeof extras === 'number') return { total: extras, text: '' };
+      if (typeof extras === 'object') {
+        const total = Object.values(extras).reduce((s, v) => s + (parseInt(v) || 0), 0);
+        const parts = [];
+        if (extras.b)  parts.push(`b ${extras.b}`);
+        if (extras.lb) parts.push(`lb ${extras.lb}`);
+        if (extras.wd) parts.push(`wd ${extras.wd}`);
+        if (extras.nb) parts.push(`nb ${extras.nb}`);
+        if (extras.p)  parts.push(`p ${extras.p}`);
+        return { total, text: parts.join(', ') };
+      }
+      return { total: parseInt(extras) || 0, text: '' };
+    }
+
+    async function apiFetch(endpoint, id, key) {
+      const url = `${CRICAPI_BASE}/${endpoint}?apikey=${encodeURIComponent(key)}&id=${encodeURIComponent(id)}`;
+      const res = await fetch(url);
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const data = await res.json();
+      return data;
+    }
+
+    // ── Init ──
+    const params = new URLSearchParams(window.location.search);
+    const matchId = params.get('id');
+    const apiKey = localStorage.getItem(LS_KEY) || DEFAULT_KEY;
+
+    if (!matchId) {
+      scContent.innerHTML = `<div class="sc-error">No match ID provided. <a href="index.html#live" style="color:var(--gold)">← Go back</a></div>`;
+    } else {
+      loadAll(matchId, apiKey);
+    }
+
+    // Cache for data across tabs
+    let cachedScorecard = null;
+    let cachedInfo = null;
+    let cachedBBB = null;
+
+    async function loadAll(id, key) {
       try {
-        const url = `${CRICAPI_BASE}/match_scorecard?apikey=${encodeURIComponent(apiKey)}&id=${encodeURIComponent(id)}`;
-        const res = await fetch(url);
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        const data = await res.json();
-        if (data.status !== 'success' || !data.data) {
-          // Fallback: try basic match info
-          const basicUrl = `${CRICAPI_BASE}/match_info?apikey=${encodeURIComponent(apiKey)}&id=${encodeURIComponent(id)}`;
-          const res2 = await fetch(basicUrl);
-          if (!res2.ok) throw new Error(`HTTP ${res2.status}`);
-          const data2 = await res2.json();
-          if (data2.status !== 'success' || !data2.data) {
-            throw new Error(data.status || data2.status || 'API error');
+        // Load scorecard first (primary data)
+        const sc = await apiFetch('match_scorecard', id, key);
+        if (sc.status === 'success' && sc.data) {
+          cachedScorecard = sc.data;
+          render(sc.data);
+        } else {
+          // Fallback to match_info
+          const mi = await apiFetch('match_info', id, key);
+          if (mi.status === 'success' && mi.data) {
+            cachedInfo = mi.data;
+            render(mi.data, true);
+          } else {
+            throw new Error(sc.status || mi.status || 'API error');
           }
-          renderBasicInfo(data2.data);
-          return;
         }
-        renderScorecard(data.data);
+        // Eagerly load info and bbb in background
+        if (!cachedInfo) {
+          apiFetch('match_info', id, key).then(d => { if (d.status === 'success') cachedInfo = d.data; }).catch(()=>{});
+        }
       } catch (err) {
-        scContent.innerHTML = `<div class="sc-error">⚠️ Failed to load scorecard: ${escHtml(err.message)}.<br><br><a href="index.html#live" style="color:var(--gold)">← Return to Live Scores</a></div>`;
+        scContent.innerHTML = `<div class="sc-error">⚠️ ${esc(err.message)}<br><br><a href="index.html#live" style="color:var(--gold)">← Return to Live Scores</a></div>`;
       }
     }
 
-    function renderScorecard(match) {
+    function render(match, scorecardOnly = false) {
       const isLive = match.matchStarted && !match.matchEnded;
       const isUpcoming = !match.matchStarted;
       const teams = match.teams || [];
+      const scores = match.score || [];
 
-      // Build status badge
       let badgeClass = 'sc-badge-result', badgeText = 'Completed';
       if (isUpcoming) { badgeClass = 'sc-badge-upcoming'; badgeText = 'Upcoming'; }
       else if (isLive) { badgeClass = 'sc-badge-live'; badgeText = '● LIVE'; }
 
-      // Build teams header summary
-      const scores = match.score || [];
+      // Teams summary
       let teamsSummaryHTML = '';
-      if (teams.length >= 2) {
-        teams.forEach((team, idx) => {
-          const scoreObj = scores.find(s => s.inning && s.inning.startsWith(team));
-          const scoreText = scoreObj ? `${scoreObj.r ?? 0}/${scoreObj.w ?? 0}` : (match.matchStarted ? '—/—' : 'TBD');
-          const overs = scoreObj && scoreObj.o ? `(${scoreObj.o} ov)` : '';
-          if (idx === 1) teamsSummaryHTML += `<span class="sc-vs">vs</span>`;
-          teamsSummaryHTML += `
-            <div class="sc-team-block">
-              <span class="sc-team-name-big">${escHtml(team)}</span>
-              <div class="sc-team-score-big">${escHtml(scoreText)}</div>
-              <div class="sc-team-overs">${escHtml(overs)}</div>
-            </div>`;
-        });
-      }
-
-      const matchType = match.matchType ? match.matchType.toUpperCase() : 'CRICKET';
-      const statusText = match.status || (isUpcoming ? `Starts ${match.date || 'soon'}` : 'Result pending');
-      const venue = match.venue || '';
-      const matchDate = match.date ? `📅 ${match.date}` : '';
-
-      // Build scorecard innings
-      const scorecard = match.scorecard || [];
-      let inningsHTML = '';
-
-      if (scorecard.length === 0) {
-        inningsHTML = `
-          <div class="sc-no-scorecard">
-            <div class="sc-nc-icon">🏏</div>
-            <p>${isUpcoming ? 'Match has not started yet. Scorecard will appear once the match begins.' : 'Detailed scorecard not available for this match.'}</p>
+      teams.forEach((team, idx) => {
+        const scoreObj = scores.find(s => s.inning && s.inning.startsWith(team));
+        const scoreText = scoreObj ? `${scoreObj.r ?? 0}/${scoreObj.w ?? 0}` : (match.matchStarted ? '—' : 'TBD');
+        const overs = scoreObj && scoreObj.o ? `(${scoreObj.o} ov)` : '';
+        if (idx === 1) teamsSummaryHTML += `<span class="sc-vs">vs</span>`;
+        teamsSummaryHTML += `
+          <div class="sc-team-block">
+            <span class="sc-team-name-big">${esc(team)}</span>
+            <div class="sc-team-score-big">${esc(scoreText)}</div>
+            <div class="sc-team-overs">${esc(overs)}</div>
           </div>`;
-      } else {
-        scorecard.forEach(innings => {
-          inningsHTML += buildInningsHTML(innings);
-        });
-      }
+      });
 
-      document.title = `${escHtml(match.name || teams.join(' vs '))} — Scorecard`;
+      const statusText = match.status || (isUpcoming ? `Starts ${match.date || 'soon'}` : 'Result pending');
+      const matchType = match.matchType ? match.matchType.toUpperCase() : 'CRICKET';
+      document.title = `${match.name || teams.join(' vs ')} — Scorecard`;
 
-      scContent.innerHTML = `
+      const header = `
         <div class="sc-header">
-          <div class="sc-match-type">${escHtml(matchType)}${match.series_id ? '' : ''}</div>
-          <div class="sc-match-name">${escHtml(match.name || teams.join(' vs '))}</div>
+          <div class="sc-match-type">${esc(matchType)}</div>
+          <div class="sc-match-name">${esc(match.name || teams.join(' vs '))}</div>
           <div class="sc-teams-summary">${teamsSummaryHTML}</div>
           <div class="sc-status-row">
             <span class="sc-status-badge ${badgeClass}">${badgeText}</span>
-            <span class="sc-status-text">${escHtml(statusText)}</span>
+            <span class="sc-status-text">${esc(statusText)}</span>
           </div>
-          ${venue ? `<div class="sc-venue" style="margin-top:10px">📍 ${escHtml(venue)}${matchDate ? '  &nbsp;' + escHtml(matchDate) : ''}</div>` : (matchDate ? `<div class="sc-venue" style="margin-top:10px">${escHtml(matchDate)}</div>` : '')}
+          ${match.venue ? `<div class="sc-venue">📍 ${esc(match.venue)}${match.date ? `  &nbsp; 📅 ${esc(match.date)}` : ''}</div>` : ''}
+        </div>`;
+
+      // Tabs
+      const tabs = `
+        <div class="sc-tabs" id="scTabsBar">
+          <button class="sc-tab-btn active" data-tab="scorecard">📋 Scorecard</button>
+          <button class="sc-tab-btn" data-tab="commentary">🎙 Commentary</button>
+          <button class="sc-tab-btn" data-tab="info">ℹ️ Match Info</button>
         </div>
-        ${inningsHTML}`;
+        <div id="tab-scorecard" class="sc-tab-panel active">${buildScorecardTab(match)}</div>
+        <div id="tab-commentary" class="sc-tab-panel"><div class="sc-loading" id="commLoading"><div class="sc-spinner"></div><div class="sc-loading-text">Loading commentary…</div></div></div>
+        <div id="tab-info" class="sc-tab-panel"><div class="sc-loading" id="infoLoading"><div class="sc-spinner"></div><div class="sc-loading-text">Loading match info…</div></div></div>`;
+
+      scContent.innerHTML = header + tabs;
+
+      // Tab switching
+      document.querySelectorAll('.sc-tab-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.sc-tab-btn').forEach(b => b.classList.remove('active'));
+          document.querySelectorAll('.sc-tab-panel').forEach(p => p.classList.remove('active'));
+          btn.classList.add('active');
+          const panel = document.getElementById('tab-' + btn.dataset.tab);
+          panel.classList.add('active');
+          if (btn.dataset.tab === 'commentary' && !panel.dataset.loaded) {
+            loadCommentary(matchId, apiKey, panel);
+            panel.dataset.loaded = '1';
+          }
+          if (btn.dataset.tab === 'info' && !panel.dataset.loaded) {
+            loadMatchInfo(matchId, apiKey, panel, match);
+            panel.dataset.loaded = '1';
+          }
+        });
+      });
     }
 
-    function buildInningsHTML(innings) {
-      const battingList = innings.batting || [];
-      const bowlingList = innings.bowling || [];
-      const fowList = innings.fow || [];
-      const inningName = innings.inning || 'Innings';
-      const r = innings.r ?? '—';
-      const w = innings.w ?? '—';
-      const o = innings.o ?? '';
+    // ── SCORECARD TAB ──
+    function buildScorecardTab(match) {
+      const scorecard = match.scorecard || [];
+      if (!scorecard.length) {
+        return `<div class="sc-no-data"><div class="icon">🏏</div><p>${match.matchStarted ? 'Detailed scorecard not available.' : 'Match has not started yet.'}</p></div>`;
+      }
+      return scorecard.map(inn => buildInningsHTML(inn)).join('');
+    }
 
-      // Batting rows
+    function buildInningsHTML(inn) {
+      const battingList = inn.batting || [];
+      const bowlingList = inn.bowling || [];
+      const fowList = inn.fow || [];
+      const innName = inn.inning || 'Innings';
+      const r = inn.r ?? '—';
+      const w = inn.w ?? '—';
+      const o = inn.o != null ? inn.o : '';
+
+      // Batting
       let battingRows = '';
       battingList.forEach(b => {
+        const name = getName(b.batsman || b.batsmanName || b.name);
+        // Dismissal text: API sometimes uses 'dismissal-text' with hyphen
+        const dismissal = b['dismissal-text'] || b.dismissal_text || b.dismissal || '';
+        const isNotOut = !dismissal || dismissal.toLowerCase() === 'not out' || dismissal.toLowerCase() === 'batting';
         const sr = b.sr != null ? parseFloat(b.sr).toFixed(1) : '—';
-        const isNotOut = b.dismissal_text && (b.dismissal_text.toLowerCase() === 'not out' || b.dismissal_text.toLowerCase() === 'batting');
+        const runs = b.r ?? b.runs ?? '—';
+        const balls = b.b ?? b.balls ?? '—';
+        const fours = b['4s'] ?? b.fours ?? '—';
+        const sixes = b['6s'] ?? b.sixes ?? '—';
+        const is50 = typeof runs === 'number' && runs >= 50;
         battingRows += `
           <tr>
             <td>
-              <span class="sc-batter-name ${isNotOut ? 'sc-not-out' : ''}">${escHtml(b.batsman || b.name || '—')}</span>
-              <span class="sc-dismissal">${escHtml(b.dismissal_text || '')}</span>
+              <span class="sc-batter-name ${isNotOut ? 'sc-not-out' : ''}">${esc(name)}</span>
+              ${dismissal ? `<span class="sc-dismissal">${esc(dismissal)}</span>` : ''}
             </td>
-            <td class="num ${b.r >= 50 ? 'sc-highlight' : ''}">${b.r ?? '—'}</td>
-            <td class="num">${b.b ?? '—'}</td>
-            <td class="num">${b['4s'] ?? b.fours ?? '—'}</td>
-            <td class="num">${b['6s'] ?? b.sixes ?? '—'}</td>
+            <td class="num ${is50 ? 'sc-highlight' : ''}">${runs}</td>
+            <td class="num">${balls}</td>
+            <td class="num">${fours}</td>
+            <td class="num">${sixes}</td>
             <td class="num">${sr}</td>
           </tr>`;
       });
 
-      // Extras & Total
-      const extras = innings.extras != null ? innings.extras : (innings.e ?? null);
-      const extrasBreakdown = innings.extras_text || '';
+      // Extras
+      const extrasRaw = inn.extras != null ? inn.extras : (inn.e != null ? inn.e : null);
+      const extras = parseExtras(extrasRaw);
+      const extrasText = inn.extrasText || inn.extras_text || (extras ? extras.text : '');
 
-      // Bowling rows
+      // Bowling
       let bowlingRows = '';
-      bowlingList.forEach(bwlr => {
-        const econ = bwlr.eco != null ? parseFloat(bwlr.eco).toFixed(2) : '—';
-        const hasFiveFor = (bwlr.w ?? 0) >= 5;
+      bowlingList.forEach(bw => {
+        const name = getName(bw.bowler || bw.bowlerName || bw.name);
+        const eco = bw.eco != null ? parseFloat(bw.eco).toFixed(2) : (bw.economy != null ? parseFloat(bw.economy).toFixed(2) : '—');
+        const wickets = bw.w ?? bw.wickets ?? 0;
+        const hasFiveFor = wickets >= 5;
+        battingRows; // keep ref
         bowlingRows += `
           <tr>
-            <td class="sc-batter-name">${escHtml(bwlr.bowler || bwlr.name || '—')}</td>
-            <td class="num">${bwlr.o ?? '—'}</td>
-            <td class="num">${bwlr.m ?? '—'}</td>
-            <td class="num">${bwlr.r ?? '—'}</td>
-            <td class="num ${hasFiveFor ? 'sc-highlight' : ''}">${bwlr.w ?? '—'}</td>
-            <td class="num">${econ}</td>
+            <td class="sc-batter-name">${esc(name)}</td>
+            <td class="num">${bw.o ?? bw.overs ?? '—'}</td>
+            <td class="num">${bw.m ?? bw.maidens ?? '—'}</td>
+            <td class="num">${bw.r ?? bw.runs ?? '—'}</td>
+            <td class="num ${hasFiveFor ? 'sc-highlight' : ''}">${wickets}</td>
+            <td class="num">${eco}</td>
           </tr>`;
       });
 
       // Fall of wickets
       let fowHTML = '';
-      if (fowList.length > 0) {
-        const items = fowList.map(f =>
-          `<span class="sc-fow-item"><strong>${escHtml(String(f.score || f.r || '?'))}</strong>-${f.w ?? '?'} (${escHtml(f.player || f.batsman || '?')}, ${f.over ? f.over + ' ov' : '?'})</span>`
-        ).join('');
-        fowHTML = `
-          <div class="sc-fow">
-            <div class="sc-fow-title">Fall of Wickets</div>
-            <div class="sc-fow-list">${items}</div>
-          </div>`;
+      if (fowList.length) {
+        const items = fowList.map(f => {
+          const score = f.score ?? f.r ?? '?';
+          const wkt = f.w ?? f.wicket ?? '?';
+          const player = getName(f.player || f.batsman || f.name);
+          const over = f.over ?? f.o ?? '?';
+          return `<span class="sc-fow-item"><strong>${esc(String(score))}-${wkt}</strong> ${esc(player)} (${esc(String(over))} ov)</span>`;
+        }).join('');
+        fowHTML = `<div class="sc-fow"><div class="sc-fow-title">Fall of Wickets</div><div class="sc-fow-list">${items}</div></div>`;
       }
 
       return `
         <div class="sc-innings">
           <div class="sc-innings-header">
-            <span class="sc-innings-title">${escHtml(inningName)}</span>
+            <span class="sc-innings-title">${esc(innName)}</span>
             <span>
               <span class="sc-innings-total">${r}/${w}</span>
-              ${o ? `<span class="sc-innings-overs">(${o} ov)</span>` : ''}
+              ${o !== '' ? `<span class="sc-innings-overs">(${o} ov)</span>` : ''}
             </span>
           </div>
           ${battingRows ? `
-          <div class="sc-section-label">Batting</div>
-          <div class="sc-table-wrap">
-            <table class="sc-table">
-              <thead>
-                <tr>
-                  <th>Batter</th>
-                  <th class="num">R</th>
-                  <th class="num">B</th>
-                  <th class="num">4s</th>
-                  <th class="num">6s</th>
-                  <th class="num">SR</th>
-                </tr>
-              </thead>
-              <tbody>
-                ${battingRows}
-                ${extras != null ? `<tr class="sc-extras-row"><td colspan="3">Extras ${extrasBreakdown ? '(' + escHtml(extrasBreakdown) + ')' : ''}</td><td class="num" colspan="3">${extras}</td></tr>` : ''}
-                <tr class="sc-total-row"><td colspan="3"><strong>Total</strong></td><td class="num" colspan="3"><strong>${r}/${w}${o ? ' (' + o + ' ov)' : ''}</strong></td></tr>
-              </tbody>
-            </table>
-          </div>` : ''}
+            <div class="sc-section-label">Batting</div>
+            <div class="sc-table-wrap">
+              <table class="sc-table">
+                <thead><tr>
+                  <th>Batter</th><th class="num">R</th><th class="num">B</th>
+                  <th class="num">4s</th><th class="num">6s</th><th class="num">SR</th>
+                </tr></thead>
+                <tbody>
+                  ${battingRows}
+                  ${extras != null ? `<tr class="sc-extras-row"><td colspan="3">Extras${extrasText ? ' (' + esc(extrasText) + ')' : ''}</td><td class="num" colspan="3">${extras.total}</td></tr>` : ''}
+                  <tr class="sc-total-row"><td colspan="3"><strong>Total</strong></td><td class="num" colspan="3"><strong>${r}/${w}${o !== '' ? ' (' + o + ' ov)' : ''}</strong></td></tr>
+                </tbody>
+              </table>
+            </div>` : ''}
           ${bowlingRows ? `
-          <div class="sc-section-label" style="margin-top:16px">Bowling</div>
-          <div class="sc-table-wrap sc-bowling-wrap">
-            <table class="sc-table">
-              <thead>
-                <tr>
-                  <th>Bowler</th>
-                  <th class="num">O</th>
-                  <th class="num">M</th>
-                  <th class="num">R</th>
-                  <th class="num">W</th>
-                  <th class="num">Econ</th>
-                </tr>
-              </thead>
-              <tbody>${bowlingRows}</tbody>
-            </table>
-          </div>` : ''}
+            <div class="sc-section-label" style="margin-top:12px">Bowling</div>
+            <div class="sc-table-wrap">
+              <table class="sc-table">
+                <thead><tr>
+                  <th>Bowler</th><th class="num">O</th><th class="num">M</th>
+                  <th class="num">R</th><th class="num">W</th><th class="num">Econ</th>
+                </tr></thead>
+                <tbody>${bowlingRows}</tbody>
+              </table>
+            </div>` : ''}
           ${fowHTML}
         </div>`;
     }
 
-    function renderBasicInfo(match) {
-      // Render a simpler view when only basic info is available
-      const isLive = match.matchStarted && !match.matchEnded;
-      const isUpcoming = !match.matchStarted;
-      const teams = match.teams || [];
-      const scores = match.score || [];
+    // ── COMMENTARY TAB ──
+    async function loadCommentary(id, key, panel) {
+      try {
+        if (cachedBBB) { renderCommentary(cachedBBB, panel); return; }
+        const data = await apiFetch('match_bbb', id, key);
+        if (data.status !== 'success' || !data.data) throw new Error(data.status || 'Not available');
+        cachedBBB = data.data;
+        renderCommentary(data.data, panel);
+      } catch (err) {
+        panel.innerHTML = `<div class="sc-no-data"><div class="icon">🎙</div><p>Commentary not available for this match.<br><small style="color:var(--text-muted)">${esc(err.message)}</small></p></div>`;
+      }
+    }
 
-      let badgeClass = 'sc-badge-result', badgeText = 'Completed';
-      if (isUpcoming) { badgeClass = 'sc-badge-upcoming'; badgeText = 'Upcoming'; }
-      else if (isLive) { badgeClass = 'sc-badge-live'; badgeText = '● LIVE'; }
+    function renderCommentary(data, panel) {
+      const bbb = data.bbb || data.commentary || [];
+      if (!bbb.length) {
+        panel.innerHTML = `<div class="sc-no-data"><div class="icon">🎙</div><p>No ball-by-ball commentary yet.</p></div>`;
+        return;
+      }
 
-      let teamsSummaryHTML = '';
-      teams.forEach((team, idx) => {
-        const scoreObj = scores.find(s => s.inning && s.inning.startsWith(team));
-        const scoreText = scoreObj ? `${scoreObj.r ?? 0}/${scoreObj.w ?? 0}` : (match.matchStarted ? '—/—' : 'TBD');
-        const overs = scoreObj && scoreObj.o ? `(${scoreObj.o} ov)` : '';
-        if (idx === 1) teamsSummaryHTML += `<span class="sc-vs">vs</span>`;
-        teamsSummaryHTML += `
-          <div class="sc-team-block">
-            <span class="sc-team-name-big">${escHtml(team)}</span>
-            <div class="sc-team-score-big">${escHtml(scoreText)}</div>
-            <div class="sc-team-overs">${escHtml(overs)}</div>
-          </div>`;
-      });
+      // Show most recent balls first (reverse order)
+      const balls = [...bbb].reverse();
+      const CHUNK = 30;
+      let shown = CHUNK;
 
-      const statusText = match.status || (isUpcoming ? `Starts ${match.date || 'soon'}` : 'Result pending');
-      const matchType = match.matchType ? match.matchType.toUpperCase() : 'CRICKET';
+      function renderChunk() {
+        const slice = balls.slice(0, shown);
+        const items = slice.map(ball => {
+          const over = ball.over != null ? ball.over : (ball.o ?? '');
+          const runs = ball.r ?? ball.runs ?? ball.score ?? '';
+          const comm = ball.commentary || ball.comm || ball.description || '';
+          let scoreClass = '';
+          if (String(runs) === '6' || String(runs).includes('SIX')) scoreClass = 'is-six';
+          else if (String(runs) === '4' || String(runs).includes('FOUR')) scoreClass = 'is-four';
+          else if (String(comm).toLowerCase().includes('wicket') || String(comm).toLowerCase().includes('out') || String(runs) === 'W') scoreClass = 'is-wicket';
+          return `
+            <div class="sc-ball-item">
+              <span class="sc-ball-over">${esc(String(over))}</span>
+              <span class="sc-ball-score ${scoreClass}">${esc(String(runs))}</span>
+              <span class="sc-ball-text">${esc(comm)}</span>
+            </div>`;
+        }).join('');
 
-      scContent.innerHTML = `
-        <div class="sc-header">
-          <div class="sc-match-type">${escHtml(matchType)}</div>
-          <div class="sc-match-name">${escHtml(match.name || teams.join(' vs '))}</div>
-          <div class="sc-teams-summary">${teamsSummaryHTML}</div>
-          <div class="sc-status-row">
-            <span class="sc-status-badge ${badgeClass}">${badgeText}</span>
-            <span class="sc-status-text">${escHtml(statusText)}</span>
+        const moreBtn = shown < balls.length
+          ? `<div class="sc-commentary-load"><button id="loadMoreComm">Load More</button></div>`
+          : '';
+
+        panel.innerHTML = `<div class="sc-innings"><div class="sc-commentary-list">${items}</div></div>${moreBtn}`;
+
+        if (shown < balls.length) {
+          document.getElementById('loadMoreComm').addEventListener('click', () => {
+            shown += CHUNK;
+            renderChunk();
+          });
+        }
+      }
+      renderChunk();
+    }
+
+    // ── MATCH INFO TAB ──
+    async function loadMatchInfo(id, key, panel, fallbackMatch) {
+      try {
+        let match = cachedInfo;
+        if (!match) {
+          const data = await apiFetch('match_info', id, key);
+          if (data.status === 'success' && data.data) {
+            match = data.data;
+            cachedInfo = match;
+          } else {
+            match = fallbackMatch;
+          }
+        }
+        renderMatchInfo(match, panel);
+      } catch (err) {
+        renderMatchInfo(fallbackMatch, panel);
+      }
+    }
+
+    function renderMatchInfo(match, panel) {
+      const toss = match.tossChoice || match.toss || '';
+      const tossWinner = match.tossWinner || '';
+      const umpire1 = getName(match.umpire1 || (match.umpires && match.umpires[0]) || '');
+      const umpire2 = getName(match.umpire2 || (match.umpires && match.umpires[1]) || '');
+      const tvUmpire = getName(match.umpire3 || match.tvUmpire || '');
+      const matchReferee = getName(match.matchReferee || match.referee || '');
+      const series = match.series || match.seriesName || '';
+      const format = match.matchType ? match.matchType.toUpperCase() : '';
+      const dateTime = match.dateTimeGMT || match.date || '';
+      const venue = match.venue || '';
+
+      let infoHTML = `
+        <div class="sc-info-grid">
+          <div class="sc-info-card">
+            <div class="sc-info-card-title">Match Details</div>
+            ${series ? `<div class="sc-info-row"><span class="sc-info-label">Series</span><span class="sc-info-value">${esc(series)}</span></div>` : ''}
+            ${format ? `<div class="sc-info-row"><span class="sc-info-label">Format</span><span class="sc-info-value">${esc(format)}</span></div>` : ''}
+            ${dateTime ? `<div class="sc-info-row"><span class="sc-info-label">Date / Time</span><span class="sc-info-value">${esc(dateTime)}</span></div>` : ''}
+            ${venue ? `<div class="sc-info-row"><span class="sc-info-label">Venue</span><span class="sc-info-value">${esc(venue)}</span></div>` : ''}
           </div>
-          ${match.venue ? `<div class="sc-venue" style="margin-top:10px">📍 ${escHtml(match.venue)}</div>` : ''}
-        </div>
-        <div class="sc-no-scorecard">
-          <div class="sc-nc-icon">📋</div>
-          <p>Detailed ball-by-ball scorecard is not available for this match via the free API tier.<br><br>Showing match summary above.</p>
+          <div class="sc-info-card">
+            <div class="sc-info-card-title">Toss & Officials</div>
+            ${tossWinner ? `<div class="sc-info-row"><span class="sc-info-label">Toss</span><span class="sc-info-value">${esc(tossWinner)} (${esc(toss)})</span></div>` : ''}
+            ${umpire1 && umpire1 !== '—' ? `<div class="sc-info-row"><span class="sc-info-label">Umpire 1</span><span class="sc-info-value">${esc(umpire1)}</span></div>` : ''}
+            ${umpire2 && umpire2 !== '—' ? `<div class="sc-info-row"><span class="sc-info-label">Umpire 2</span><span class="sc-info-value">${esc(umpire2)}</span></div>` : ''}
+            ${tvUmpire && tvUmpire !== '—' ? `<div class="sc-info-row"><span class="sc-info-label">TV Umpire</span><span class="sc-info-value">${esc(tvUmpire)}</span></div>` : ''}
+            ${matchReferee && matchReferee !== '—' ? `<div class="sc-info-row"><span class="sc-info-label">Referee</span><span class="sc-info-value">${esc(matchReferee)}</span></div>` : ''}
+          </div>
         </div>`;
+
+      // Squads
+      const squads = match.players || match.squads || {};
+      const teamNames = match.teams || Object.keys(squads);
+      if (teamNames.length >= 2 && squads) {
+        const t1 = teamNames[0], t2 = teamNames[1];
+        const p1 = squads[t1] || [];
+        const p2 = squads[t2] || [];
+        if (p1.length || p2.length) {
+          const renderSquad = (players) => players.map(p => {
+            const name = getName(p);
+            const isCap = p.isCaption || p.isCaptain || (typeof p === 'object' && p.captain);
+            return `<div class="sc-squad-player ${isCap ? 'captain' : ''}">${esc(name)}${isCap ? ' ©' : ''}</div>`;
+          }).join('');
+          infoHTML += `
+            <div class="sc-squads-wrap">
+              <div class="sc-squad-card"><div class="sc-squad-title">${esc(t1)}</div>${renderSquad(p1)}</div>
+              <div class="sc-squad-card"><div class="sc-squad-title">${esc(t2)}</div>${renderSquad(p2)}</div>
+            </div>`;
+        }
+      }
+
+      panel.innerHTML = infoHTML || `<div class="sc-no-data"><div class="icon">ℹ️</div><p>Match info not available.</p></div>`;
     }
   </script>
 </body>
