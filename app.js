@@ -414,11 +414,13 @@ function clearErrorBanner() {
   if (b) b.remove();
 }
 
-// ── Auto-load if key saved in localStorage ──
-const savedKey = localStorage.getItem(LS_KEY);
+// ── Auto-load: use embedded key or localStorage override ──
+const DEFAULT_KEY = 'd19a69d5-f828-4b49-8cc4-9a73f970c598';
+const savedKey = localStorage.getItem(LS_KEY) || DEFAULT_KEY;
 if (savedKey) {
   liveApiKey = savedKey;
   apiKeyInput.value = savedKey;
+  localStorage.setItem(LS_KEY, savedKey);
   apiSetupCard.classList.add('hidden');
   apiGuideCard.classList.add('hidden');
   liveControls.classList.remove('hidden');
