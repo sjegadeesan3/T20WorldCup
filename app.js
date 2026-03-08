@@ -34,6 +34,22 @@ tabBtns.forEach(btn => {
   });
 });
 
+// ── Stadium sub-tabs ──
+const stadiumTabBtns = document.querySelectorAll('.stadium-tab-btn');
+const stadiumTabContents = document.querySelectorAll('.stadium-tab-content');
+
+stadiumTabBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    const target = btn.dataset.stab;
+
+    stadiumTabBtns.forEach(b => b.classList.remove('active'));
+    stadiumTabContents.forEach(c => c.classList.add('hidden'));
+
+    btn.classList.add('active');
+    document.getElementById('stab-' + target).classList.remove('hidden');
+  });
+});
+
 // ── Scroll fade-in ──
 const fadeEls = document.querySelectorAll(
   '.score-card, .record-card, .fact-card, .squad-card, .journey-step, .venue-card, .lb-row:not(.lb-header)'
@@ -97,6 +113,20 @@ const h2hObserver = new IntersectionObserver((entries) => {
   });
 }, { threshold: 0.5 });
 h2hNums.forEach(el => h2hObserver.observe(el));
+
+// ── Stadium stat number counters ──
+const stNums = document.querySelectorAll('.st-num[data-count]');
+const stObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const el = entry.target;
+      const end = parseInt(el.dataset.count);
+      if (!isNaN(end)) animateCount(el, end, 1200);
+      stObserver.unobserve(el);
+    }
+  });
+}, { threshold: 0.5 });
+stNums.forEach(el => stObserver.observe(el));
 
 // ── Active nav link on scroll ──
 const sections = document.querySelectorAll('section[id]');
