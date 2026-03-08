@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>T20 World Cup 2026 — The Final</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- ───── NAV ───── -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <div class="nav-logo">
+        <span class="logo-icon">🏏</span>
+        <span>ICC T20 World Cup <strong>2026</strong></span>
+      </div>
+      <ul class="nav-links">
+        <li><a href="#match">Match</a></li>
+        <li><a href="#squads">Squads</a></li>
+        <li><a href="#stats">Stats</a></li>
+        <li><a href="#journey">Journey</a></li>
+        <li><a href="#venue">Venue</a></li>
+      </ul>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">☰</button>
+    </div>
+    <div class="nav-mobile" id="navMobile">
+      <a href="#match">Match</a>
+      <a href="#squads">Squads</a>
+      <a href="#stats">Stats</a>
+      <a href="#journey">Journey</a>
+      <a href="#venue">Venue</a>
+    </div>
+  </nav>
+
+  <!-- ───── HERO ───── -->
+  <section class="hero" id="match">
+    <div class="hero-bg">
+      <div class="ball ball1"></div>
+      <div class="ball ball2"></div>
+      <div class="ball ball3"></div>
+      <div class="stump stump1"></div>
+      <div class="stump stump2"></div>
+    </div>
+    <div class="hero-content">
+      <div class="tournament-label">
+        <span class="live-dot"></span>
+        <span>ICC MEN'S T20 WORLD CUP 2026 — FINAL</span>
+      </div>
+      <div class="hero-meta">📍 Narendra Modi Stadium, Ahmedabad &nbsp;|&nbsp; March 8, 2026</div>
+
+      <div class="matchup">
+        <!-- India -->
+        <div class="team india-team">
+          <div class="team-flag">🇮🇳</div>
+          <div class="team-name">INDIA</div>
+          <div class="team-sub">Defending Champions</div>
+        </div>
+
+        <!-- VS -->
+        <div class="vs-block">
+          <div class="vs-text">VS</div>
+          <div class="vs-sub">GRAND FINAL</div>
+          <div class="toss-info">🪙 NZ won toss — chose to bowl</div>
+        </div>
+
+        <!-- New Zealand -->
+        <div class="team nz-team">
+          <div class="team-flag">🇳🇿</div>
+          <div class="team-name">NEW ZEALAND</div>
+          <div class="team-sub">First Title Hunt</div>
+        </div>
+      </div>
+
+      <div class="hero-chips">
+        <div class="chip chip-india">India 2× Champs</div>
+        <div class="chip chip-alert">🔥 Today's Final</div>
+        <div class="chip chip-nz">NZ Seeking First Title</div>
+      </div>
+
+      <!-- Head-to-head callout -->
+      <div class="h2h-banner">
+        <div class="h2h-item">
+          <div class="h2h-num india-col">0</div>
+          <div class="h2h-label">India Wins<br/><small>vs NZ at WC</small></div>
+        </div>
+        <div class="h2h-divider">T20 WC<br/>HEAD TO HEAD</div>
+        <div class="h2h-item">
+          <div class="h2h-num nz-col">3</div>
+          <div class="h2h-label">NZ Wins<br/><small>vs India at WC</small></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───── SCOREBOARD ───── -->
+  <section class="section scoreboard-section">
+    <div class="container">
+      <h2 class="section-title">Today's <span class="gold">Final Scorecard</span></h2>
+      <p class="section-sub">Narendra Modi Stadium, Ahmedabad — Match Day Lineup</p>
+
+      <div class="scorecard-grid">
+        <!-- India batting -->
+        <div class="score-card india-card">
+          <div class="score-card-header">
+            <span class="score-flag">🇮🇳</span>
+            <span>INDIA — BATTING FIRST</span>
+          </div>
+          <div class="score-card-body">
+            <table class="score-table">
+              <thead>
+                <tr><th>Batter</th><th>R</th><th>B</th><th>SR</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Sanju Samson</td><td>—</td><td>—</td><td>—</td></tr>
+                <tr><td>Abhishek Sharma</td><td>—</td><td>—</td><td>—</td></tr>
+                <tr><td>Ishan Kishan <em class="role">wk</em></td><td>—</td><td>—</td><td>—</td></tr>
+                <tr class="captain-row"><td>Suryakumar Yadav <em class="role">c</em></td><td>—</td><td>—</td><td>—</td></tr>
+                <tr><td>Hardik Pandya</td><td>—</td><td>—</td><td>—</td></tr>
+                <tr><td>Tilak Varma</td><td>—</td><td>—</td><td>—</td></tr>
+                <tr><td>Axar Patel</td><td>—</td><td>—</td><td>—</td></tr>
+                <tr><td>Shivam Dube</td><td>—</td><td>—</td><td>—</td></tr>
+                <tr><td>Arshdeep Singh</td><td>—</td><td>—</td><td>—</td></tr>
+                <tr><td>Varun Chakravarthy</td><td>—</td><td>—</td><td>—</td></tr>
+                <tr><td>Jasprit Bumrah</td><td>—</td><td>—</td><td>—</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- New Zealand bowling -->
+        <div class="score-card nz-card">
+          <div class="score-card-header">
+            <span class="score-flag">🇳🇿</span>
+            <span>NEW ZEALAND — BOWLING</span>
+          </div>
+          <div class="score-card-body">
+            <table class="score-table">
+              <thead>
+                <tr><th>Player</th><th>R</th><th>B</th><th>SR</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Finn Allen</td><td>—</td><td>—</td><td>—</td></tr>
+                <tr><td>Tim Seifert <em class="role">wk</em></td><td>—</td><td>—</td><td>—</td></tr>
+                <tr><td>Rachin Ravindra</td><td>—</td><td>—</td><td>—</td></tr>
+                <tr><td>Glenn Phillips</td><td>—</td><td>—</td><td>—</td></tr>
+                <tr><td>Mark Chapman</td><td>—</td><td>—</td><td>—</td></tr>
+                <tr><td>Daryl Mitchell</td><td>—</td><td>—</td><td>—</td></tr>
+                <tr class="captain-row"><td>Mitchell Santner <em class="role">c</em></td><td>—</td><td>—</td><td>—</td></tr>
+                <tr><td>Jimmy Neesham</td><td>—</td><td>—</td><td>—</td></tr>
+                <tr><td>Matt Henry</td><td>—</td><td>—</td><td>—</td></tr>
+                <tr><td>Jacob Duffy</td><td>—</td><td>—</td><td>—</td></tr>
+                <tr><td>Lockie Ferguson</td><td>—</td><td>—</td><td>—</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <p class="live-note"><span class="live-dot small"></span> Match in progress — scores update live via your broadcaster</p>
+    </div>
+  </section>
+
+  <!-- ───── TOURNAMENT STATS ───── -->
+  <section class="section stats-section" id="stats">
+    <div class="container">
+      <h2 class="section-title">Tournament <span class="gold">Leaderboards</span></h2>
+      <p class="section-sub">ICC Men's T20 World Cup 2026 — All group stages through finals</p>
+
+      <div class="stats-tabs">
+        <button class="tab-btn active" data-tab="runs">🏏 Top Run Scorers</button>
+        <button class="tab-btn" data-tab="wickets">🎳 Top Wicket Takers</button>
+      </div>
+
+      <div class="tab-content" id="tab-runs">
+        <div class="leaderboard">
+          <div class="lb-row lb-header">
+            <span>#</span><span>Player</span><span>Country</span><span>Runs</span><span>Avg</span>
+          </div>
+          <div class="lb-row">
+            <span class="rank gold-rank">1</span>
+            <span class="player-name">Sahibzada Farhan</span>
+            <span class="country">🇵🇰 Pakistan</span>
+            <span class="stat-val gold">383</span>
+            <span class="stat-extra">2 tons 🏆</span>
+          </div>
+          <div class="lb-row">
+            <span class="rank silver-rank">2</span>
+            <span class="player-name">Brian Bennett</span>
+            <span class="country">🇿🇼 Zimbabwe</span>
+            <span class="stat-val">292</span>
+            <span class="stat-extra">Breakout star</span>
+          </div>
+          <div class="lb-row">
+            <span class="rank bronze-rank">3</span>
+            <span class="player-name">Finn Allen</span>
+            <span class="country">🇳🇿 New Zealand</span>
+            <span class="stat-val">289</span>
+            <span class="stat-extra">Record 💥 ton</span>
+          </div>
+          <div class="lb-row">
+            <span class="rank">4</span>
+            <span class="player-name">Aiden Markram</span>
+            <span class="country">🇿🇦 South Africa</span>
+            <span class="stat-val">268</span>
+            <span class="stat-extra">Consistent</span>
+          </div>
+          <div class="lb-row">
+            <span class="rank">5</span>
+            <span class="player-name">Ryan Rickelton</span>
+            <span class="country">🇿🇦 South Africa</span>
+            <span class="stat-val">228</span>
+            <span class="stat-extra">Opener</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="tab-content hidden" id="tab-wickets">
+        <div class="leaderboard">
+          <div class="lb-row lb-header">
+            <span>#</span><span>Player</span><span>Country</span><span>Wickets</span><span>Econ</span>
+          </div>
+          <div class="lb-row">
+            <span class="rank gold-rank">1</span>
+            <span class="player-name">Saurabh Netravalkar</span>
+            <span class="country">🇺🇸 USA</span>
+            <span class="stat-val gold">13</span>
+            <span class="stat-extra">Tournament 🏆</span>
+          </div>
+          <div class="lb-row">
+            <span class="rank silver-rank">2</span>
+            <span class="player-name">Blessing Muzarabani</span>
+            <span class="country">🇿🇼 Zimbabwe</span>
+            <span class="stat-val">13</span>
+            <span class="stat-extra">Pace demon 🔥</span>
+          </div>
+          <div class="lb-row">
+            <span class="rank bronze-rank">3</span>
+            <span class="player-name">Lungi Ngidi</span>
+            <span class="country">🇿🇦 South Africa</span>
+            <span class="stat-val">12</span>
+            <span class="stat-extra">Lethal</span>
+          </div>
+          <div class="lb-row">
+            <span class="rank">4</span>
+            <span class="player-name">Corbin Bosch</span>
+            <span class="country">🇿🇦 South Africa</span>
+            <span class="stat-val">11</span>
+            <span class="stat-extra">All-rounder</span>
+          </div>
+          <div class="lb-row">
+            <span class="rank">5</span>
+            <span class="player-name">Varun Chakravarthy</span>
+            <span class="country">🇮🇳 India</span>
+            <span class="stat-val">11</span>
+            <span class="stat-extra">Mystery spin 🌀</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Notable records -->
+      <div class="records-grid">
+        <div class="record-card">
+          <div class="record-icon">🏏</div>
+          <div class="record-title">Youngest WC Centurion</div>
+          <div class="record-name">Yuvraj Samra (Canada)</div>
+          <div class="record-detail">110 runs vs New Zealand, aged 19</div>
+        </div>
+        <div class="record-card">
+          <div class="record-icon">⚡</div>
+          <div class="record-title">First Century of Tournament</div>
+          <div class="record-name">Pathum Nissanka (Sri Lanka)</div>
+          <div class="record-detail">Unbeaten 100 vs Australia</div>
+        </div>
+        <div class="record-card">
+          <div class="record-icon">🌍</div>
+          <div class="record-title">First-time Qualifier</div>
+          <div class="record-name">Italy 🇮🇹</div>
+          <div class="record-detail">Made their T20 World Cup debut in 2026</div>
+        </div>
+        <div class="record-card">
+          <div class="record-icon">📊</div>
+          <div class="record-title">Tournament Record Runs</div>
+          <div class="record-name">Sahibzada Farhan</div>
+          <div class="record-detail">383 runs — a new tournament record with 2 centuries</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───── SQUADS ───── -->
+  <section class="section squads-section" id="squads">
+    <div class="container">
+      <h2 class="section-title">Playing <span class="gold">XI Today</span></h2>
+      <p class="section-sub">Final lineups at Narendra Modi Stadium</p>
+
+      <div class="squads-grid">
+        <!-- India -->
+        <div class="squad-card india-squad">
+          <div class="squad-header">
+            <span class="squad-flag">🇮🇳</span>
+            <div>
+              <div class="squad-team">INDIA</div>
+              <div class="squad-captain">Captain: Suryakumar Yadav</div>
+            </div>
+          </div>
+          <ul class="squad-list">
+            <li><span class="pnum">1</span> Sanju Samson <em class="tag tag-bat">BAT</em></li>
+            <li><span class="pnum">2</span> Abhishek Sharma <em class="tag tag-bat">BAT</em></li>
+            <li><span class="pnum">3</span> Ishan Kishan <em class="tag tag-wk">WK</em></li>
+            <li class="captain-li"><span class="pnum">4</span> Suryakumar Yadav ★ <em class="tag tag-bat">BAT</em></li>
+            <li><span class="pnum">5</span> Hardik Pandya <em class="tag tag-ar">AR</em></li>
+            <li><span class="pnum">6</span> Tilak Varma <em class="tag tag-bat">BAT</em></li>
+            <li><span class="pnum">7</span> Axar Patel <em class="tag tag-ar">AR</em></li>
+            <li><span class="pnum">8</span> Shivam Dube <em class="tag tag-ar">AR</em></li>
+            <li><span class="pnum">9</span> Arshdeep Singh <em class="tag tag-bowl">BOWL</em></li>
+            <li><span class="pnum">10</span> Varun Chakravarthy <em class="tag tag-bowl">BOWL</em></li>
+            <li><span class="pnum">11</span> Jasprit Bumrah <em class="tag tag-bowl">BOWL</em></li>
+          </ul>
+        </div>
+
+        <!-- New Zealand -->
+        <div class="squad-card nz-squad">
+          <div class="squad-header">
+            <span class="squad-flag">🇳🇿</span>
+            <div>
+              <div class="squad-team">NEW ZEALAND</div>
+              <div class="squad-captain">Captain: Mitchell Santner</div>
+            </div>
+          </div>
+          <ul class="squad-list">
+            <li><span class="pnum">1</span> Finn Allen <em class="tag tag-bat">BAT</em></li>
+            <li><span class="pnum">2</span> Tim Seifert <em class="tag tag-wk">WK</em></li>
+            <li><span class="pnum">3</span> Rachin Ravindra <em class="tag tag-ar">AR</em></li>
+            <li><span class="pnum">4</span> Glenn Phillips <em class="tag tag-ar">AR</em></li>
+            <li><span class="pnum">5</span> Mark Chapman <em class="tag tag-bat">BAT</em></li>
+            <li><span class="pnum">6</span> Daryl Mitchell <em class="tag tag-ar">AR</em></li>
+            <li class="captain-li"><span class="pnum">7</span> Mitchell Santner ★ <em class="tag tag-ar">AR</em></li>
+            <li><span class="pnum">8</span> Jimmy Neesham <em class="tag tag-ar">AR</em></li>
+            <li><span class="pnum">9</span> Matt Henry <em class="tag tag-bowl">BOWL</em></li>
+            <li><span class="pnum">10</span> Jacob Duffy <em class="tag tag-bowl">BOWL</em></li>
+            <li><span class="pnum">11</span> Lockie Ferguson <em class="tag tag-bowl">BOWL</em></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───── ROAD TO FINAL ───── -->
+  <section class="section journey-section" id="journey">
+    <div class="container">
+      <h2 class="section-title">Road to <span class="gold">The Final</span></h2>
+      <p class="section-sub">How each team earned their place in the Grand Final</p>
+
+      <div class="journey-grid">
+        <!-- India -->
+        <div class="journey-col">
+          <div class="journey-team-label india-label">🇮🇳 India's Journey</div>
+          <div class="journey-steps">
+            <div class="journey-step win">
+              <div class="step-stage">Group Stage</div>
+              <div class="step-result">✅ Topped Group</div>
+              <div class="step-detail">Undefeated through group stage</div>
+            </div>
+            <div class="journey-arrow">↓</div>
+            <div class="journey-step win">
+              <div class="step-stage">Super 8</div>
+              <div class="step-result">✅ Advanced</div>
+              <div class="step-detail">Dominant performances throughout</div>
+            </div>
+            <div class="journey-arrow">↓</div>
+            <div class="journey-step win">
+              <div class="step-stage">Semi-Final</div>
+              <div class="step-result">✅ Beat England</div>
+              <div class="step-detail">Secured spot in the final vs ENG</div>
+            </div>
+            <div class="journey-arrow">↓</div>
+            <div class="journey-step final-step">
+              <div class="step-stage">FINAL</div>
+              <div class="step-result">🏆 vs New Zealand</div>
+              <div class="step-detail">Chasing 3rd title today!</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- New Zealand -->
+        <div class="journey-col">
+          <div class="journey-team-label nz-label">🇳🇿 New Zealand's Journey</div>
+          <div class="journey-steps">
+            <div class="journey-step win">
+              <div class="step-stage">Group Stage</div>
+              <div class="step-result">✅ Qualified</div>
+              <div class="step-detail">Finn Allen's century lit up the group stage</div>
+            </div>
+            <div class="journey-arrow">↓</div>
+            <div class="journey-step win">
+              <div class="step-stage">Super 8</div>
+              <div class="step-result">✅ Advanced</div>
+              <div class="step-detail">All-round team effort</div>
+            </div>
+            <div class="journey-arrow">↓</div>
+            <div class="journey-step win">
+              <div class="step-stage">Semi-Final</div>
+              <div class="step-result">✅ Won</div>
+              <div class="step-detail">Overcame tough opposition to reach the final</div>
+            </div>
+            <div class="journey-arrow">↓</div>
+            <div class="journey-step final-step">
+              <div class="step-stage">FINAL</div>
+              <div class="step-result">🏆 vs India</div>
+              <div class="step-detail">Seeking maiden T20 World Cup title!</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───── FUN FACTS ───── -->
+  <section class="section facts-section">
+    <div class="container">
+      <h2 class="section-title">Did You <span class="gold">Know?</span></h2>
+      <div class="facts-grid">
+        <div class="fact-card">
+          <div class="fact-icon">🏟️</div>
+          <div class="fact-text">Narendra Modi Stadium in Ahmedabad is the world's largest cricket stadium with a capacity of <strong>132,000+</strong></div>
+        </div>
+        <div class="fact-card">
+          <div class="fact-icon">🔄</div>
+          <div class="fact-text">India has never beaten New Zealand in a T20 World Cup match — they trail <strong>0–3</strong> in WC head-to-head</div>
+        </div>
+        <div class="fact-card">
+          <div class="fact-icon">🥇</div>
+          <div class="fact-text">India can become the <strong>first team ever</strong> to win three T20 World Cup titles if they win today</div>
+        </div>
+        <div class="fact-card">
+          <div class="fact-icon">🥈</div>
+          <div class="fact-text">New Zealand were runners-up in the <strong>2021 T20 World Cup</strong> — today they go for gold for the first time</div>
+        </div>
+        <div class="fact-card">
+          <div class="fact-icon">🌍</div>
+          <div class="fact-text">The 2026 T20 World Cup is co-hosted by <strong>India & Sri Lanka</strong> across 8 venues — the 10th edition of the tournament</div>
+        </div>
+        <div class="fact-card">
+          <div class="fact-icon">👶</div>
+          <div class="fact-text">Canada's Yuvraj Samra, 19, became the <strong>youngest T20 WC centurion ever</strong>, smashing 110 runs against New Zealand</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───── VENUE ───── -->
+  <section class="section venue-section" id="venue">
+    <div class="container">
+      <h2 class="section-title">The <span class="gold">Venue</span></h2>
+      <div class="venue-card">
+        <div class="venue-info">
+          <div class="venue-name">Narendra Modi Stadium</div>
+          <div class="venue-location">📍 Ahmedabad, Gujarat, India</div>
+          <div class="venue-stats-grid">
+            <div class="venue-stat">
+              <div class="venue-stat-num">132,000+</div>
+              <div class="venue-stat-label">Capacity</div>
+            </div>
+            <div class="venue-stat">
+              <div class="venue-stat-num">#1</div>
+              <div class="venue-stat-label">World's Largest Cricket Stadium</div>
+            </div>
+            <div class="venue-stat">
+              <div class="venue-stat-num">100,000+</div>
+              <div class="venue-stat-label">Expected Attendance Today</div>
+            </div>
+            <div class="venue-stat">
+              <div class="venue-stat-num">2020</div>
+              <div class="venue-stat-label">Year Renovated</div>
+            </div>
+          </div>
+          <p class="venue-desc">
+            The Narendra Modi Stadium, formerly known as Sardar Patel Stadium, is the world's largest cricket stadium.
+            Located in Motera, Ahmedabad, it was completely rebuilt and inaugurated in 2020. Today it hosts the grandest
+            stage in T20 cricket — the ICC Men's T20 World Cup Final 2026.
+          </p>
+        </div>
+        <div class="venue-visual">
+          <div class="stadium-svg">
+            <svg viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
+              <!-- Sky -->
+              <defs>
+                <radialGradient id="fieldGrad" cx="50%" cy="50%" r="50%">
+                  <stop offset="0%" stop-color="#2d5a27"/>
+                  <stop offset="60%" stop-color="#1a3d17"/>
+                  <stop offset="100%" stop-color="#0f2410"/>
+                </radialGradient>
+                <radialGradient id="skyGrad" cx="50%" cy="30%" r="70%">
+                  <stop offset="0%" stop-color="#1a1a4e"/>
+                  <stop offset="100%" stop-color="#0a0a1e"/>
+                </radialGradient>
+              </defs>
+              <rect width="300" height="200" fill="url(#skyGrad)"/>
+              <!-- Stars -->
+              <circle cx="30" cy="20" r="1" fill="white" opacity="0.8"/>
+              <circle cx="80" cy="15" r="1" fill="white" opacity="0.6"/>
+              <circle cx="150" cy="10" r="1.5" fill="white" opacity="0.9"/>
+              <circle cx="220" cy="18" r="1" fill="white" opacity="0.7"/>
+              <circle cx="270" cy="12" r="1" fill="white" opacity="0.5"/>
+              <!-- Stadium stands -->
+              <ellipse cx="150" cy="100" rx="140" ry="90" fill="#2a2a5a" opacity="0.8"/>
+              <ellipse cx="150" cy="100" rx="120" ry="76" fill="#1e1e4a"/>
+              <!-- Field -->
+              <ellipse cx="150" cy="110" rx="100" ry="65" fill="url(#fieldGrad)"/>
+              <!-- Pitch -->
+              <rect x="138" y="80" width="24" height="60" rx="2" fill="#c9a96e" opacity="0.8"/>
+              <!-- Crease lines -->
+              <rect x="135" y="88" width="30" height="2" fill="white" opacity="0.6"/>
+              <rect x="135" y="130" width="30" height="2" fill="white" opacity="0.6"/>
+              <!-- Stumps -->
+              <rect x="144" y="82" width="2" height="8" fill="#e0c060"/>
+              <rect x="148" y="82" width="2" height="8" fill="#e0c060"/>
+              <rect x="152" y="82" width="2" height="8" fill="#e0c060"/>
+              <rect x="144" y="130" width="2" height="8" fill="#e0c060"/>
+              <rect x="148" y="130" width="2" height="8" fill="#e0c060"/>
+              <rect x="152" y="130" width="2" height="8" fill="#e0c060"/>
+              <!-- Stadium lights -->
+              <rect x="55" y="30" width="4" height="30" fill="#888"/>
+              <rect x="241" y="30" width="4" height="30" fill="#888"/>
+              <rect x="55" y="28" width="12" height="5" rx="2" fill="#fffaaa" opacity="0.9"/>
+              <rect x="237" y="28" width="12" height="5" rx="2" fill="#fffaaa" opacity="0.9"/>
+              <!-- Light beams -->
+              <polygon points="57,33 45,70 75,70" fill="#fffaaa" opacity="0.08"/>
+              <polygon points="243,33 225,70 255,70" fill="#fffaaa" opacity="0.08"/>
+              <!-- Text -->
+              <text x="150" y="185" text-anchor="middle" fill="#ffd700" font-size="9" font-family="Oswald, sans-serif" font-weight="600">NARENDRA MODI STADIUM</text>
+              <text x="150" y="195" text-anchor="middle" fill="#aaa" font-size="7" font-family="Inter, sans-serif">AHMEDABAD • CAPACITY 132,000+</text>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───── FOOTER ───── -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <span class="logo-icon">🏏</span>
+          <span>ICC T20 World Cup 2026</span>
+        </div>
+        <div class="footer-final">
+          🏆 GRAND FINAL — India vs New Zealand<br/>
+          <small>March 8, 2026 | Narendra Modi Stadium, Ahmedabad</small>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 T20 World Cup Fan Site — Built with ❤️ for cricket</span>
+        <span>Data sourced from ICC, ESPNcricinfo & Al Jazeera</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
