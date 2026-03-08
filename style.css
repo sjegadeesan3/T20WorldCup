@@ -820,15 +820,14 @@ body {
 }
 .live-match-card:hover { border-color: rgba(255,215,0,0.4); transform: translateY(-2px); }
 .clickable-card { cursor: pointer; }
-.clickable-card::after {
-  content: 'View Scorecard →';
-  display: block; font-size: 12px; font-weight: 600; letter-spacing: 0.3px;
+.lmc-scorecard-btn {
+  font-size: 12.5px; font-weight: 600; letter-spacing: 0.3px;
   color: var(--gold); text-align: center;
-  padding: 8px 16px; background: rgba(255,215,0,0.05);
+  padding: 9px 16px; background: rgba(255,215,0,0.06);
   border-top: 1px solid rgba(255,215,0,0.15);
-  opacity: 0; transition: opacity 0.2s;
+  transition: background 0.2s;
 }
-.clickable-card:hover::after { opacity: 1; }
+.clickable-card:hover .lmc-scorecard-btn { background: rgba(255,215,0,0.14); }
 .live-match-card.is-live { border-color: rgba(34,197,94,0.4); }
 .live-match-card.is-live .lmc-header { background: linear-gradient(90deg, rgba(34,197,94,0.15), rgba(34,197,94,0.05)); }
 

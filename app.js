@@ -329,13 +329,17 @@ function buildMatchCard(match) {
   const isUpcoming = !match.matchStarted;
 
   const card = document.createElement('div');
+  // CricketData.org may return id as 'id', 'matchId', or 'uniqueId'
+  const matchId = match.id || match.matchId || match.uniqueId || '';
   card.className = `live-match-card${isLive ? ' is-live' : ''} clickable-card`;
   card.title = 'Click to view full scorecard';
-  if (match.id) {
-    card.addEventListener('click', () => {
-      window.open(`scorecard.html?id=${encodeURIComponent(match.id)}`, '_blank');
-    });
-  }
+  card.addEventListener('click', () => {
+    if (matchId) {
+      window.location.href = `scorecard.html?id=${encodeURIComponent(matchId)}`;
+    } else {
+      alert('Scorecard not available for this match.');
+    }
+  });
 
   // Status badge
   let badgeClass = 'badge-result';
@@ -385,7 +389,8 @@ function buildMatchCard(match) {
       <div class="lmc-divider"></div>
       <div class="lmc-status-text${isLive ? ' live-text' : ''}">${escapeHtml(statusText)}</div>
       ${venue ? `<div class="lmc-venue">${escapeHtml(venue)}</div>` : ''}
-    </div>`;
+    </div>
+    ${matchId ? `<div class="lmc-scorecard-btn">View Full Scorecard →</div>` : ''}`;
 
   return card;
 }
